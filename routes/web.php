@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* Static Pages are defined using view Static Method as below*/
-Route::view('/','home.index')
-        ->name('home.index');
-Route::view('/contact','home.contact')
-        ->name('home.contact');
+
+Route::view('/', 'home.index')
+    ->name('home.index');
+Route::view('/contact', 'home.contact')
+    ->name('home.contact');
 /*
 Route::get('/', function () {
     return view('home.index');
@@ -29,7 +30,7 @@ Route::get('/contact',function(){
 
 */
 
-Route::get('/posts/{id}',function($id){
+Route::get('/posts/{id}', function ($id) {
     $posts = [
         1 => [
             'title' => 'Intro to Laravel',
@@ -40,10 +41,18 @@ Route::get('/posts/{id}',function($id){
             'content' => 'This is a short intro to PHP'
         ]
     ];
-    abort_if(!isset($posts[$id]),404); 
-    return view('posts.show',['post'=>$posts[$id]]);
+    abort_if(!isset($posts[$id]), 404);
+    return view('posts.show', ['post' => $posts[$id]]);
 })->name('posts.show');
 
-Route::get('/recent-posts/{days_ago?}',function($daysAgo=20){
-    return 'Blog Post '.$daysAgo.' Days Ago';
+
+/* blog creation Create, read , update , delete, */
+Route::get('/blog', function () {
+    return view('Blog.blog');
+});
+
+
+
+Route::get('/recent-posts/{days_ago?}', function ($daysAgo = 20) {
+    return 'Blog Post ' . $daysAgo . ' Days Ago';
 })->name('posts.recent.index');
