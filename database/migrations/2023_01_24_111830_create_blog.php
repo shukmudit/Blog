@@ -14,7 +14,7 @@ class CreateBlog extends Migration
     public function up()
     {
         Schema::create('blog', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('description');
             $table->timestamps();

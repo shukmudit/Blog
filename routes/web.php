@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BlogController;
+use App\Models\Blog;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +52,25 @@ Route::get('/posts/{id}', function ($id) {
 Route::get('/blog', function () {
     return view('Blog.blog');
 });
+
+//blog addition
+Route::post('blog/add', [BlogController::class, 'blogAdd'])->name('store.blog');
+
+//blog details
+Route::get('/blogdetails', function () {
+    $blogs = DB::table('blog')->orderBy('title', 'asc')->paginate(15);
+    return view('Blog.blogdetails', compact('blogs'));
+});
+
+//blog details
+Route::get('/blog/delete/{id}', [BlogController::class, 'delete']);
+
+//blog edit
+Route::get('/blog/edit/{id}', [BlogController::class, 'Edit']);
+
+//blog update
+
+Route::post('/blog/update/{id}', [BlogController::class, 'update']);
 
 
 
